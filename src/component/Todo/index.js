@@ -3,9 +3,6 @@ import React from 'react'
 function Todo(props) {
     return (
         <div>
-            <h2 id="list-heading">
-                3 tasks remaining
-            </h2>
             <ul
                 className="todo-list stack-large stack-exception"
                 aria-labelledby="list-heading">
@@ -14,7 +11,7 @@ function Todo(props) {
                         <input id="todo-0" type="checkbox" defaultChecked={false} />
                         <label className="todo-label" htmlFor="todo-0">
                             {props.name}
-            </label>
+                        </label>
                     </div>
                     <div className="btn-group">
                         <button type="button" className="btn">

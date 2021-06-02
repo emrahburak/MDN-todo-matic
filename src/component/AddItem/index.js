@@ -1,6 +1,24 @@
-import React from 'react'
+import React,{useState} from 'react'
 
 function AddItem() {
+
+    const [todos, setTodos] = useState([]);
+    const [input, setInput] = useState('');
+    const [id, setId] = useState(0);
+
+
+    const handleChange = e => {
+        setInput(e.target.value);
+        console.log(e.target.value);
+    }
+
+    const handleAdded = ()=> {
+        setTodos(todos => [...todos,{text:input, id:id}]);
+        setInput('');
+        setId(id + 1);
+        console.log(todos);
+    }
+
     return (
         <div>
              <form>
@@ -15,8 +33,13 @@ function AddItem() {
                     className="input input__lg"
                     name="text"
                     autoComplete="off"
+                    onChange={handleChange}
                 />
-                <button type="submit" className="btn btn__primary btn__lg">
+                <button
+                 type="submit"
+                  className="btn btn__primary btn__lg"
+                  onClick={handleAdded}
+                  >
                     Add
                 </button>
             </form>
