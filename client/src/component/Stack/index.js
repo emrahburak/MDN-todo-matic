@@ -1,6 +1,6 @@
 import React, { useEffect} from 'react'
 import { useSelector } from 'react-redux'
-import AddItem from '../AddItem'
+import AddTodo from '../AddTodo'
 import Filter from '../Filter'
 import Todo from '../Todo'
 
@@ -15,12 +15,12 @@ function Stack() {
     useEffect(() => {
         // 
 
-    }, [todos])
+    }, [])
 
     return (
         <div className="todoapp stack-large">
             <h1>Todo Matic</h1>
-            <AddItem />
+            <AddTodo/>
             <Filter />
             <h2 id="list-heading">
                 {todos.length} tasks remaining
@@ -28,7 +28,7 @@ function Stack() {
             <ul>
                 {
                     todos.map((todo, pos) => (
-                        <Todo key={pos} name={todo} />
+                        <Todo key={pos} name={todo.title} />
                     ))
                 }
             </ul>

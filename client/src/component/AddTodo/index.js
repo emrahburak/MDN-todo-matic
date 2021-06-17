@@ -1,22 +1,29 @@
 import React,{useState} from 'react'
+import  {useDispatch,useSelector} from 'react-redux'
+import {addTodo} from '../../redux/Todo/todo.actions'
+
+const mapState = (state) => ({
+    todos: state.todos.stack
+})
+const initialState = {
+    id:0,
+    title:''
+};
 
 function AddItem() {
 
-    const [todos, setTodos] = useState([]);
-    const [input, setInput] = useState('');
-    const [id, setId] = useState(0);
+    const {todos} = useSelector(mapState);
+    const [todo, setTodo] = useState(initialState);
+
+    const dispatch = useDispatch();
 
 
-    const handleChange = e => {
-        setInput(e.target.value);
-        console.log(e.target.value);
-    }
-
-    const handleAdded = ()=> {
-        setTodos(todos => [...todos,{text:input, id:id}]);
-        setInput('');
-        setId(id + 1);
-        console.log(todos);
+    const handleAdded = (e)=> {
+        e.preventDefault()
+        dispatch(
+            addTodo(todo)
+        );
+        setTodo(initialState);
     }
 
     return (
@@ -33,7 +40,8 @@ function AddItem() {
                     className="input input__lg"
                     name="text"
                     autoComplete="off"
-                    onChange={handleChange}
+                    value={todo.title}
+                    onChange={e => setTodo({...todo,id:todos.length + 1, title:e.target.value})}
                 />
                 <button
                  type="submit"

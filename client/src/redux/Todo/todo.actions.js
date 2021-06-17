@@ -3,5 +3,5 @@ import {todoTypes} from './todo.types'
 
 export const addTodo = todo => ({
     type:todoTypes.ADD_TODO,
-    action: todo
+    payload: todo
 })
