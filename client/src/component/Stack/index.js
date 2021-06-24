@@ -1,23 +1,30 @@
 import React, { useEffect} from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector,useDispatch } from 'react-redux'
 import AddTodo from '../AddTodo'
 import Filter from '../Filter'
 import Todo from '../Todo'
+import {fetchTodos} from '../../redux/Todo/todo.actions'
 
 const mapState = (state) => ({
-    todos: state.todos.stack
+    todosData: state.todosData
 })
 
 
 function Stack() {
-    const { todos } = useSelector(mapState);
+    const { todosData } = useSelector(mapState);
+    const dispatch = useDispatch();
+    const { loading, todos} = todosData;
 
     useEffect(() => {
-        // 
+        dispatch(fetchTodos())
 
     }, [])
 
-    return (
+    return loading ? (
+        <h2>Loading</h2>
+    ): todosData.error ? (
+        <h2>{todosData.error}</h2>
+    ): (
         <div className="todoapp stack-large">
             <h1>Todo Matic</h1>
             <AddTodo/>
@@ -34,6 +41,7 @@ function Stack() {
             </ul>
         </div>
     )
+
 }
 
 export default Stack

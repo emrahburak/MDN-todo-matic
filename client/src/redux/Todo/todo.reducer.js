@@ -1,19 +1,36 @@
 import { todoTypes } from "./todo.types";
 
 const INITIAL_STATE = {
-  stack: [
-    { id: 1, title: "eat" },
-    { id: 2, title: "winter" },
-    { id: 3, title: "toraman" },
-  ],
+  loading: false,
+  todos: [],
+  error: ''
 };
 
 const todoReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case todoTypes.FETCH_TODOS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case todoTypes.FETCH_TODOS_SUCCESS:
+      return{
+        ...state,
+        loading: false,
+        todos: action.payload,
+        error: ''
+      }
+    case todoTypes.FETCH_TODOS_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        todos: [],
+        error: action.payload
+      }
     case todoTypes.ADD_TODO:
       return {
         ...state,
-        stack: [...state.stack,action.payload],
+        todos: [...state.stack,action.payload],
       };
 
     default:

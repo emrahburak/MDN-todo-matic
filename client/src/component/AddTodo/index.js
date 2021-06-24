@@ -3,7 +3,7 @@ import  {useDispatch,useSelector} from 'react-redux'
 import {addTodo} from '../../redux/Todo/todo.actions'
 
 const mapState = (state) => ({
-    todos: state.todos.stack
+    todosData: state.todosData
 })
 const initialState = {
     id:0,
@@ -12,8 +12,9 @@ const initialState = {
 
 function AddItem() {
 
-    const {todos} = useSelector(mapState);
+    const {todosData} = useSelector(mapState);
     const [todo, setTodo] = useState(initialState);
+    const { todos} = todosData;
 
     const dispatch = useDispatch();
 
