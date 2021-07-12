@@ -20,6 +20,7 @@ function Stack() {
 
     }, [])
 
+
     return loading ? (
         <h2>Loading</h2>
     ): todosData.error ? (
@@ -35,7 +36,7 @@ function Stack() {
             <ul>
                 {
                     todos.map((todo, pos) => (
-                        <Todo key={pos} name={todo.title} />
+                        <Todo key={pos} todo={todo} />
                     ))
                 }
             </ul>

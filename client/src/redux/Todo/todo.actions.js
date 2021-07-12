@@ -1,4 +1,5 @@
 import {todoTypes} from './todo.types'
+import {uri} from './todo.helper'
 const axios = require('axios');
 
 
@@ -17,23 +18,50 @@ export const fetchTodosFailure = error => ({
     payload: error
 })
 
-export const addTodo = todo => ({
-    type:todoTypes.ADD_TODO,
+export const addTodoSuccess = todo => ({
+    type: todoTypes.ADD_TODO_SUCCESS,
+    payload: todo
+})
+
+export const deleteTodoSuccess = todo => ({
+    type: todoTypes.DELETE_TODO_SUCCESS,
     payload: todo
 })
 
 
-
-
-
 export const fetchTodos = () => async dispatch => {
     dispatch(fetchTodosRequest)
-        await axios.get('http://localhost:3000/todos')
+        await axios.get(uri)
         .then( res => {
             const todos = res.data;
             dispatch(fetchTodosSuccess(todos))
         })
-        .catch( e =>{
-            dispatch(fetchTodosFailure(e.message))
+        .catch( err =>{
+            dispatch(fetchTodosFailure(err.message))
         } )
+}
+
+
+export const addTodo = (todo) => async dispatch => {
+        await axios.post(uri, {
+            title:todo.title,
+            isActive: "true"
+        })
+        .then(res => {
+            const todo = res.data;
+            dispatch(addTodoSuccess(todo));
+        } )
+        .catch(err => {
+            dispatch(fetchTodosFailure(err.message))
+        })
+}
+
+export const deleteTodo = (todo) => async dispatch => {
+    await axios.delete(uri+`/${todo.id}`,todo)
+    .then(res => {
+        dispatch(deleteTodoSuccess(todo));
+    } )
+    .catch(err => {
+        dispatch(fetchTodosFailure(err.message))
+    })
 }

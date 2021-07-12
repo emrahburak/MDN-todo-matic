@@ -6,7 +6,6 @@ const mapState = (state) => ({
     todosData: state.todosData
 })
 const initialState = {
-    id:0,
     title:''
 };
 
@@ -42,7 +41,7 @@ function AddItem() {
                     name="text"
                     autoComplete="off"
                     value={todo.title}
-                    onChange={e => setTodo({...todo,id:todos.length + 1, title:e.target.value})}
+                    onChange={e => setTodo({ title:e.target.value})}
                 />
                 <button
                  type="submit"
