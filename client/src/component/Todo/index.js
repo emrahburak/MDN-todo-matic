@@ -1,20 +1,16 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import {deleteTodo} from '../../redux/Todo/todo.actions';
-import Modal from '../Modal'
+
+
 
 function Todo({ todo }) {
-  const [hideModal, setHideModal] = useState(true)
   const dispatch = useDispatch();
 
-  const toggleModal = () => setHideModal(!hideModal);
 
-  const configModal = {
-    hideModal,
-    toggleModal
+  const handleToggleModal = e => {
+    e.preventDefault()
   }
-
-
 
   const handleDeleteTodo = (e) => {
     e.preventDefault();
@@ -40,7 +36,7 @@ function Todo({ todo }) {
           <div className="btn-group">
             <button type="button"
              className="btn"
-             onClick={() => toggleModal()}
+             onClick={handleToggleModal}
              >
               Edit
             </button>
@@ -51,7 +47,6 @@ function Todo({ todo }) {
             >
               Delete
             </button>
-            {toggleModal && console.log(toggleModal)}
           </div>
         </li>
       </ul>
