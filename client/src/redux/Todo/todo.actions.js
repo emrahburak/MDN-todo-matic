@@ -23,6 +23,11 @@ export const addTodoSuccess = todo => ({
     payload: todo
 })
 
+export const updateTodoSuccess = todo => ({
+    type: todoTypes.UPDATE_TODO_SUCCES,
+    payload: todo
+})
+
 export const deleteTodoSuccess = todo => ({
     type: todoTypes.DELETE_TODO_SUCCESS,
     payload: todo
@@ -45,7 +50,7 @@ export const fetchTodos = () => async dispatch => {
 export const addTodo = (todo) => async dispatch => {
         await axios.post(uri, {
             title:todo.title,
-            isActive: "true"
+            isActive: false
         })
         .then(res => {
             const todo = res.data;
@@ -61,6 +66,16 @@ export const deleteTodo = (todo) => async dispatch => {
     .then(res => {
         dispatch(deleteTodoSuccess(todo));
     } )
+    .catch(err => {
+        dispatch(fetchTodosFailure(err.message))
+    })
+}
+
+export const updateTodo = (todo) => async dispatch => {
+    await axios.put(uri+`/${todo.id}`,todo)
+    .then(res => {
+        dispatch(updateTodoSuccess(todo))
+    })
     .catch(err => {
         dispatch(fetchTodosFailure(err.message))
     })

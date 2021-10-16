@@ -1,5 +1,5 @@
 import { todoTypes } from "./todo.types";
-import {handleRemoveTodo} from './todo.utils'
+import {handleRemoveTodo, handleUpdateTodo} from './todo.utils'
 
 const INITIAL_STATE = {
   loading: false,
@@ -34,6 +34,17 @@ const todoReducer = (state = INITIAL_STATE, action) => {
         loading: false,
         todos: [...state.todos,action.payload],
         error: ''
+      }
+    case todoTypes.UPDATE_TODO_SUCCES:
+      return {
+        ...state,
+        loading: false,
+        todos: handleUpdateTodo({
+          prevTodo:state.todos,
+          newTodo:action.payload
+        }),
+        error:''
+
       }
     case todoTypes.DELETE_TODO_SUCCESS:
       return {
