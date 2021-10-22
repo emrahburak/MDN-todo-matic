@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import AddTodo from "../AddTodo";
 import Filter from "../Filter";
 import Todo from "../Todo";
-import { fetchTodos } from "../../redux/Todo/todo.actions";
+import { fetchTodos,setDisplayAction } from "../../redux/Todo/todo.actions";
 
 const mapState = (state) => ({
   todosData: state.todosData,
@@ -12,23 +12,29 @@ const mapState = (state) => ({
 function Stack() {
   //todos
   const { todosData } = useSelector(mapState);
+  const [display, setDisplay] = useState(todosData.display);
   const dispatch = useDispatch();
-  const { loading, todos } = todosData;
+  const {  todos } = todosData;
+
+  const handleSetDisplay = status =>{
+    setDisplay(status);
+    setDisplayAction(status)
+  }
 
 
   useEffect(() => {
     dispatch(fetchTodos());
-  }, []);
+    console.log(display);
 
-  return loading ? (
-    <h2>Loading</h2>
-  ) : todosData.error ? (
-    <h2>{todosData.error}</h2>
-  ) : (
+  }, [display,todos.length]);
+
+  return (
     <div className="todoapp stack-large">
       <h1>Todo Matic</h1>
       <AddTodo />
-      <Filter />
+      {
+        todos.length >= 0 && (<Filter handleSetDisplay={handleSetDisplay}/>)
+      }
       <h2 id="list-heading">{todos.length} tasks remaining</h2>
       <ul>
         {todos.map((todo, pos) => (

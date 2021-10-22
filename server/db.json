@@ -1,14 +1,9 @@
 {
   "todos": [
     {
-      "title": "test",
-      "isActive": true,
-      "id": 3
-    },
-    {
-      "title": "new test",
+      "title": "lorem ipsum 1",
       "isActive": false,
-      "id": 4
+      "id": 1
     }
   ]
 }

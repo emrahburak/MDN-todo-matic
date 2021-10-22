@@ -1,41 +1,29 @@
 import { todoTypes } from "./todo.types";
-import {handleRemoveTodo, handleUpdateTodo} from './todo.utils'
+import {handleRemoveTodo, handleUpdateTodo,handleFilterTodo} from './todo.utils'
 
 const INITIAL_STATE = {
-  loading: false,
+  display:false,
   todos: [],
-  error: ''
 };
 
 const todoReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case todoTypes.FETCH_TODOS_REQUEST:
+    case todoTypes.FETCH_TODOS:
       return {
         ...state,
-        loading: true,
+        todos:handleFilterTodo({
+          todos: action.payload,
+          display: state.display
+        })
       };
-    case todoTypes.FETCH_TODOS_SUCCESS:
-      return{
-        ...state,
-        loading: false,
-        todos: action.payload,
-        error: ''
-      }
-    case todoTypes.FETCH_TODOS_FAILURE:
+    case todoTypes.ADD_TODO:
       return {
         ...state,
         loading: false,
-        todos: [],
-        error: action.payload
-      }
-    case todoTypes.ADD_TODO_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        todos: [...state.todos,action.payload],
+        todos: [...state.todos,action.payload], //handle filter if not exists
         error: ''
       }
-    case todoTypes.UPDATE_TODO_SUCCES:
+    case todoTypes.UPDATE_TODO:
       return {
         ...state,
         loading: false,
@@ -46,7 +34,7 @@ const todoReducer = (state = INITIAL_STATE, action) => {
         error:''
 
       }
-    case todoTypes.DELETE_TODO_SUCCESS:
+    case todoTypes.DELETE_TODO:
       return {
         ...state,
         loading: false,
