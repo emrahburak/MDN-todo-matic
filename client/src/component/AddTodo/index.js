@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useRef,useEffect} from 'react'
 import  {useDispatch} from 'react-redux'
 import {addTodo} from '../../redux/Todo/todo.actions'
 
@@ -9,8 +9,13 @@ const initialState = {
 function AddItem() {
 
     const [todo, setTodo] = useState(initialState);
-
+    const searchInput = useRef(null);
     const dispatch = useDispatch();
+
+
+    useEffect(() => {
+        searchInput.current.focus();
+    }, [])
 
 
     const handleAdded = (e)=> {
@@ -31,6 +36,7 @@ function AddItem() {
                 </h2>
                 <input
                     type="text"
+                    ref={searchInput}
                     id="new-todo-input"
                     className="input input__lg"
                     name="text"

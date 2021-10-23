@@ -27,16 +27,12 @@ export const handleRemoveTodo = ({
 
  export const handleUpdateTodo =({
      prevTodos,
-     newItem
+     newTodo
  }) => {
-     const todoExist = existingTodo(prevTodos,newItem);
-     if(todoExist){
          return prevTodos.reduce((acc,item) => {
-             if(item.id === newItem.id ){
-                 item = newItem;
+             if(item.id === newTodo.id ){
+                 item = newTodo;
              }
              return [...acc,item];
          },[])
      }
-     return;
- }

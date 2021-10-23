@@ -28,7 +28,7 @@ const todoReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         todos: handleUpdateTodo({
-          prevTodo:state.todos,
+          prevTodos:state.todos,
           newTodo:action.payload
         }),
         error:''

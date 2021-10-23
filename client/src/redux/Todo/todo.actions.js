@@ -68,7 +68,11 @@ export const deleteTodo = (todo) => async dispatch => {
 }
 
 export const updateTodo = (todo) => async dispatch => {
-    await axios.put(uri+`/${todo.id}`,todo)
+    await axios.put(uri+`/${todo.id}`,{
+        id: todo.id,
+        title: todo.title,
+        isActive: todo.isActive
+    })
     .then(res => {
         dispatch(updateTodoAction(todo))
     })

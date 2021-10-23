@@ -6,12 +6,11 @@ import {deleteTodo,updateTodo} from '../../redux/Todo/todo.actions';
 
 function Todo({ todo }) {
   const dispatch = useDispatch();
-  const [todoState, setTodoState] = useState(todo.isActive);
 
-    useEffect(() =>{
-      console.log("Hello");
 
-    },[])
+  useEffect(() => {
+  }, [todo.isActive])
+
 
   const handleEditTodo = todo => {
     console.log(todo);
@@ -24,12 +23,9 @@ function Todo({ todo }) {
     );
   };
 
-  const handleCheckBox = () => {
-    console.log(todoState)
-    setTodoState(!todoState);
-    console.log(todoState)
-    const newTodo = {...todo,isActive:todoState}
-    console.log(newTodo);
+  const handleCheckBox = (e) => {
+    const newTodo = {...todo,[e.target.name]:!todo.isActive}
+    dispatch(updateTodo(newTodo));
   }
 
   return (
@@ -41,7 +37,7 @@ function Todo({ todo }) {
       >
         <li className="todo stack-small">
           <div className="c-cb">
-            <input id="todo-0" type="checkbox" defaultChecked={todoState} 
+            <input id="todo-0" name="isActive" type="checkbox" defaultChecked={todo.isActive} 
               onClick={ handleCheckBox} />
             <label className="todo-label" htmlFor="todo-0">
               {todo.title}

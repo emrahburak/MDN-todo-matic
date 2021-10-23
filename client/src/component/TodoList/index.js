@@ -13,28 +13,31 @@ const mapState = (state) => ({
 const TodoList = () => {
     const {todosData} = useSelector(mapState);
     const { display, todos } = todosData;
+    const len = todos.length;
     const dispatch = useDispatch();
-
 
 
     useEffect(() => {
         dispatch(fetchTodos());
+    }, [display,len])
 
-
-    }, [display])
 
     return(
         <div>
-
-        <h2 id="list-heading">{todos.length} tasks remaining</h2>
-            <ul>
-                {
-                    todos.map((todo,pos) => (
-                        <li key={pos}><Todo todo={todo}/></li>
-                    ))
-                }
-
-            </ul>
+        { len === 0 ?(
+            <p>Lets create some todo.. Again</p>
+        ):(
+            <div>
+            <h2 id="list-heading">{len} tasks remaining</h2>
+                <ul>
+                    {
+                        todos.map((todo,pos) => (
+                            <li key={pos}><Todo todo={todo}/></li>
+                     ))
+                     }
+                </ul>
+                </div>
+                )}
         </div>
     )
 }
