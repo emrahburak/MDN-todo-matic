@@ -1,19 +1,14 @@
 import React,{useState} from 'react'
-import  {useDispatch,useSelector} from 'react-redux'
+import  {useDispatch} from 'react-redux'
 import {addTodo} from '../../redux/Todo/todo.actions'
 
-const mapState = (state) => ({
-    todosData: state.todosData
-})
 const initialState = {
     title:''
 };
 
 function AddItem() {
 
-    const {todosData} = useSelector(mapState);
     const [todo, setTodo] = useState(initialState);
-    const { todos} = todosData;
 
     const dispatch = useDispatch();
 

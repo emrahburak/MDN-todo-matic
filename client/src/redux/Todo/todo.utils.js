@@ -1,12 +1,16 @@
-const existingTodo = (prevTodos, nextTodo) => {
-    return prevTodos.find(
-        todo => todo.id === nextTodo.id
-    );
-};
+const existingTodo = ( prevTodos, newTodo ) => {
+    return prevTodos.find((todo) => todo.id === newTodo.id) ? true:null;
+  };
 
+
+export const handleAddTodo = ({prevTodos, newTodo}) => {
+    const exist = existingTodo(prevTodos,newTodo);
+    if(exist === null){
+        return [...prevTodos,newTodo];
+    } 
+}
 
 export const handleFilterTodo = ({todos,display}) => {
-    debugger;
     if(display != null){
         return todos.filter(todo => todo.isActive === display);
     }
@@ -17,7 +21,8 @@ export const handleRemoveTodo = ({
     prevTodos,
     todoToRemove
 }) => {
-    return prevTodos.filter( todo => todo.id !== todoToRemove.id);
+    const exist = existingTodo(prevTodos,todoToRemove);
+    return exist ? prevTodos.filter( todo => todo.id !== todoToRemove.id) : [...prevTodos];
 };
 
  export const handleUpdateTodo =({

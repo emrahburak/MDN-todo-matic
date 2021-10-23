@@ -1,8 +1,8 @@
 import { todoTypes } from "./todo.types";
-import {handleRemoveTodo, handleUpdateTodo,handleFilterTodo} from './todo.utils'
+import {handleRemoveTodo,handleFilterTodo, handleUpdateTodo, handleAddTodo} from './todo.utils'
 
 const INITIAL_STATE = {
-  display:false,
+  display:null,
   todos: [],
 };
 
@@ -19,14 +19,14 @@ const todoReducer = (state = INITIAL_STATE, action) => {
     case todoTypes.ADD_TODO:
       return {
         ...state,
-        loading: false,
-        todos: [...state.todos,action.payload], //handle filter if not exists
-        error: ''
+        todos: handleAddTodo({
+          prevTodos:state.todos,
+          newTodo:action.payload
+        }), //handle filter if not exists
       }
     case todoTypes.UPDATE_TODO:
       return {
         ...state,
-        loading: false,
         todos: handleUpdateTodo({
           prevTodo:state.todos,
           newTodo:action.payload
@@ -37,12 +37,17 @@ const todoReducer = (state = INITIAL_STATE, action) => {
     case todoTypes.DELETE_TODO:
       return {
         ...state,
-        loading: false,
         todos: handleRemoveTodo({
           prevTodos:state.todos,
           todoToRemove: action.payload
         }),
         error: ''
+      }
+    case todoTypes.SET_DISPLAY:
+      return{
+        ...state,
+        display: action.payload
+
       }
     default:
       return state;

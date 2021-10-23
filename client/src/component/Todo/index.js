@@ -1,7 +1,6 @@
 import React, { useState ,useEffect} from "react";
 import { useDispatch } from "react-redux";
 import {deleteTodo,updateTodo} from '../../redux/Todo/todo.actions';
-import Modal from "../Modal";
 
 
 
@@ -11,10 +10,8 @@ function Todo({ todo }) {
 
     useEffect(() =>{
       console.log("Hello");
-      return () => {
 
-      }
-    },[todoState])
+    },[])
 
   const handleEditTodo = todo => {
     console.log(todo);
