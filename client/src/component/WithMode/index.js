@@ -1,5 +1,7 @@
-import {useSelector} from 'react-redux'
+import {useSelector,useDispatch} from 'react-redux'
 import React, { useEffect } from 'react'
+import {setModeAction} from '../../redux/Todo/todo.actions'
+
 
 
 
@@ -14,12 +16,25 @@ const WithMode = (WrappedComponent) => {
     const WithMode = (props) => {
 
         const {editMode} = useSelector(mapState);
-        console.log("HOC");
+        const  dispatch = useDispatch()
+
+        const handleEditMode = () => {
+            dispatch(setModeAction(true));
+        }
+
+        const handleNormalMode = () => {
+            dispatch(setModeAction(false));
+        }
+
         useEffect(() => {
+            console.log("Modo:::",editMode);
             }, [editMode])
 
             return(
-                <WrappedComponent editMode={editMode} {...props}/>
+                <WrappedComponent editMode={editMode}
+                handleEditMode={handleEditMode}
+                handleNormalMode={handleNormalMode}
+                 {...props}/>
             );
     };
     return WithMode;

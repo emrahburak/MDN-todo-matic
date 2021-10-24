@@ -1,69 +1,76 @@
-import React,{useState,useRef,useEffect} from 'react'
-import  {useDispatch} from 'react-redux'
-import {addTodo} from '../../redux/Todo/todo.actions'
-import {UpdatedComponent,WithMode}  from "../WithMode"
+import React, { useState, useRef, useEffect } from "react";
+import Button from "../Button";
+import { useDispatch } from "react-redux";
+import { addTodo } from "../../redux/Todo/todo.actions";
 
 const initialState = {
-    title:''
+  title: "",
 };
 
-function InputTodo({editMode}) {
+const INITIAL_STATE = {
+  button: "",
+};
 
-    const [todo, setTodo] = useState(initialState);
-    const searchInput = useRef(null);
-    const dispatch = useDispatch();
-    const [butttonName, setButtonName] = useState("");
+function InputTodo({ editMode }) {
+  const [todo, setTodo] = useState(initialState);
+  const searchInput = useRef(null);
+  const dispatch = useDispatch();
+  // const { editMode, handleEditMode, handleNormalMode } = props;
 
+  useEffect(() => {
+    searchInput.current.focus();
+  }, []);
 
-    useEffect(() => {
-        searchInput.current.focus();
-        if(!editMode){
-            setButtonName("Add");
-        }else{
-            setButtonName("Edit");
-        }
-    }, [editMode])
-
-
-    const handleAdded = (e)=> {
-        e.preventDefault()
-        dispatch(
-            addTodo(todo)
-        );
-        setTodo(initialState);
+  const handleAdded = (e) => {
+    e.preventDefault();
+    if(todo.title != ''){
+        dispatch(addTodo(todo));
+         setTodo(initialState);
     }
+  };
 
-    return (
-        <div>
-             <form>
-                <h2 className="label-wrapper">
-                    <label htmlFor="new-todo-input" className="label__lg">
-                        What needs to be done ?
-                    </label>
-                </h2>
-                <input
-                    type="text"
-                    ref={searchInput}
-                    id="new-todo-input"
-                    className="input input__lg"
-                    name="text"
-                    autoComplete="off"
-                    value={todo.title}
-                    onChange={e => setTodo({ title:e.target.value})}
-                />
-                <button
-                 type="submit"
-                  className="btn btn__primary btn__lg"
-                  onClick={handleAdded}
-                  >
-                      {butttonName}
-                </button>
-            </form>
+  const confiButton = {
+    type: "submit",
+    className: "btn btn__primary btn__lg",
+  };
 
-        </div>
-    )
+  return (
+    <div>
+      <form>
+        <h2 className="label-wrapper">
+          <label htmlFor="new-todo-input" className="label__lg">
+            What needs to be done ?
+          </label>
+        </h2>
+        <input
+          type="text"
+          ref={searchInput}
+          id="new-todo-input"
+          className="input input__lg"
+          name="text"
+          autoComplete="off"
+          value={todo.title}
+          onChange={(e) => setTodo({ title: e.target.value })}
+          required
+        />
+        <Button status={editMode} {...confiButton} onClick={handleAdded}>
+            Add
+        </Button>
+      </form>
+    </div>
+  );
 }
 
-const WrapIt = WithMode(InputTodo);
+export default InputTodo;
 
-export default WrapIt;
+// const WrapIt = WithMode(InputTodo);
+
+// export default WrapIt;
+
+//  <button
+//                  type="submit"
+//                   className="btn btn__primary btn__lg"
+//                   onClick={handleAdded}
+//                   >
+//                       Add
+//                 </button>

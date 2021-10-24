@@ -1,15 +1,18 @@
-import React,{Children, Fragment} from 'react'
+import React from "react";
 
-
-const Button = ({status,children,...props})=>{
-    return(
-        <div>
-        <button type="button" className="btn toggle-btn" aria-pressed={String(status)} {...props}>
-            {children}
+const Button = ({ status, children, ...props }) => {
+  return (
+    <div>
+      <button type="button" className="btn toggle-btn" {...props}>
+        {children}
+      </button>
+      {/* {status && (
+        <button type="button" className="btn toggle-btn" {...props}>
+          {children}
         </button>
-
-        </div>
-    )
-}
+      )} */}
+    </div>
+  );
+};
 
 export default Button;

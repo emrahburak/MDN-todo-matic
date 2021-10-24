@@ -4,6 +4,7 @@ import {handleRemoveTodo,handleFilterTodo, handleUpdateTodo, handleAddTodo} from
 const INITIAL_STATE = {
   display:null,
   todos: [],
+  editable:false,
   editMode:false
 };
 
