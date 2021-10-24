@@ -1,21 +1,28 @@
 import React,{useState,useRef,useEffect} from 'react'
 import  {useDispatch} from 'react-redux'
 import {addTodo} from '../../redux/Todo/todo.actions'
+import {UpdatedComponent,WithMode}  from "../WithMode"
 
 const initialState = {
     title:''
 };
 
-function AddItem() {
+function InputTodo({editMode}) {
 
     const [todo, setTodo] = useState(initialState);
     const searchInput = useRef(null);
     const dispatch = useDispatch();
+    const [butttonName, setButtonName] = useState("");
 
 
     useEffect(() => {
         searchInput.current.focus();
-    }, [])
+        if(!editMode){
+            setButtonName("Add");
+        }else{
+            setButtonName("Edit");
+        }
+    }, [editMode])
 
 
     const handleAdded = (e)=> {
@@ -49,7 +56,7 @@ function AddItem() {
                   className="btn btn__primary btn__lg"
                   onClick={handleAdded}
                   >
-                    Add
+                      {butttonName}
                 </button>
             </form>
 
@@ -57,4 +64,6 @@ function AddItem() {
     )
 }
 
-export default AddItem
+const WrapIt = WithMode(InputTodo);
+
+export default WrapIt;

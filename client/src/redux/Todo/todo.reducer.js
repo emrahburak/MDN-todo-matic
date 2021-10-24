@@ -4,6 +4,7 @@ import {handleRemoveTodo,handleFilterTodo, handleUpdateTodo, handleAddTodo} from
 const INITIAL_STATE = {
   display:null,
   todos: [],
+  editMode:false
 };
 
 const todoReducer = (state = INITIAL_STATE, action) => {
@@ -47,7 +48,11 @@ const todoReducer = (state = INITIAL_STATE, action) => {
       return{
         ...state,
         display: action.payload
-
+      }
+    case todoTypes.SET_MODE:
+      return{
+        ...state,
+        mode:action.payload
       }
     default:
       return state;

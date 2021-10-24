@@ -30,6 +30,11 @@ export const setDisplayAction = display => ({
     payload: display
 });
 
+export const setModeAction = mode =>  ({
+    type: todoTypes.SET_MODE,
+    payload: mode
+});
+
 
 export const fetchTodos = () => async dispatch => {
         await axios.get(uri)

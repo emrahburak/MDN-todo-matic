@@ -1,16 +1,15 @@
-import React  from "react";
-import AddTodo from "../AddTodo";
+import React from "react";
 import Filter from "../Filter";
+import WrapIt from "../InputTodo";
 
 
 function Stack() {
-
   return (
     <div className="todoapp stack-large">
       <h1>Todo Magic</h1>
-      <AddTodo />
-      <Filter/>
-          </div>
+      <WrapIt/>
+      <Filter />
+    </div>
   );
 }
 

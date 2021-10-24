@@ -1,6 +1,6 @@
 import React, { useState ,useEffect} from "react";
 import { useDispatch } from "react-redux";
-import {deleteTodo,updateTodo} from '../../redux/Todo/todo.actions';
+import {deleteTodo,updateTodo,setModeAction} from '../../redux/Todo/todo.actions';
 
 
 
@@ -8,16 +8,17 @@ function Todo({ todo }) {
   const dispatch = useDispatch();
 
 
-  useEffect(() => {
-  }, [todo.isActive])
+  // useEffect(() => {
+  //   console.log(todo.isActive);
+  // }, [todo.isActive])
 
 
   const handleEditTodo = todo => {
     console.log(todo);
+    dispatch(setModeAction(true));
   }
   const handleDeleteTodo = (e) => {
     e.preventDefault();
-    console.log("Delete todu Running",todo)
     dispatch(
       deleteTodo(todo)
     );
@@ -37,8 +38,8 @@ function Todo({ todo }) {
       >
         <li className="todo stack-small">
           <div className="c-cb">
-            <input id="todo-0" name="isActive" type="checkbox" defaultChecked={todo.isActive} 
-              onClick={ handleCheckBox} />
+            <input id="todo-0" name="isActive" type="checkbox" checked={todo.isActive} 
+              onChange={ handleCheckBox} />
             <label className="todo-label" htmlFor="todo-0">
               {todo.title}
             </label>
