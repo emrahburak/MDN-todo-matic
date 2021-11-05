@@ -91,6 +91,7 @@ body {
   color: #fff;
   background-color: #ca3c3c;
   border-color: #bd2130;
+
 }
 .btn__filter {
   border-color: lightgrey;
@@ -98,6 +99,16 @@ body {
 .btn__primary {
   color: #fff;
   background-color: #000;
+  height: 70px;
+  line-height:50%;
+}
+
+.btn__secondary {
+  color: #fff;
+  background-color: darkolivegreen;
+  height: 70px;
+  line-height:50%;
+
 }
 .btn-group {
   display: flex;

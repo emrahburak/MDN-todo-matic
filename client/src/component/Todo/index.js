@@ -1,6 +1,6 @@
 import React, { useState ,useEffect} from "react";
 import { useDispatch } from "react-redux";
-import {deleteTodo,updateTodo,setModeAction} from '../../redux/Todo/todo.actions';
+import {deleteTodo,updateTodo,setModeAction,editTodoAction} from '../../redux/Todo/todo.actions';
 
 
 
@@ -16,7 +16,9 @@ function Todo({ todo }) {
   const handleEditTodo = todo => {
     console.log(todo);
     dispatch(setModeAction(true));
+    dispatch(editTodoAction(todo));
   }
+
   const handleDeleteTodo = (e) => {
     e.preventDefault();
     dispatch(

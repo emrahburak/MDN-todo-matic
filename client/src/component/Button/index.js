@@ -1,16 +1,16 @@
 import React from "react";
+import cn from 'classnames'
 
-const Button = ({ status, children, ...props }) => {
+const Button = ({ appearance,  children, ...props }) => {
+
   return (
     <div>
-      <button type="button" className="btn toggle-btn" {...props}>
+      <button  className={cn(
+        "btn btn__lg",
+        !appearance? "btn__primary": "btn__secondary"
+      )}  {...props} >
         {children}
       </button>
-      {/* {status && (
-        <button type="button" className="btn toggle-btn" {...props}>
-          {children}
-        </button>
-      )} */}
     </div>
   );
 };

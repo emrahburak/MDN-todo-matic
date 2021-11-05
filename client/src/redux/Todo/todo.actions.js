@@ -15,6 +15,11 @@ export const addTodoAction = todo => ({
     payload: todo
 });
 
+export const editTodoAction = todo => ({
+    type:todoTypes.EDIT_TODO,
+    payload:todo
+});
+
 export const updateTodoAction = todo => ({
     type: todoTypes.UPDATE_TODO,
     payload: todo
@@ -34,6 +39,7 @@ export const setModeAction = mode =>  ({
     type: todoTypes.SET_MODE,
     payload: mode
 });
+
 
 
 export const fetchTodos = () => async dispatch => {

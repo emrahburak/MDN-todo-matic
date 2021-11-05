@@ -4,8 +4,8 @@ import {handleRemoveTodo,handleFilterTodo, handleUpdateTodo, handleAddTodo} from
 const INITIAL_STATE = {
   display:null,
   todos: [],
-  editable:false,
-  editMode:false
+  editMode:false,
+  todo:{title:""}
 };
 
 const todoReducer = (state = INITIAL_STATE, action) => {
@@ -25,6 +25,11 @@ const todoReducer = (state = INITIAL_STATE, action) => {
           prevTodos:state.todos,
           newTodo:action.payload
         }), //handle filter if not exists
+      }
+    case todoTypes.EDIT_TODO:
+      return {
+        ...state,
+        todo:{...action.payload}
       }
     case todoTypes.UPDATE_TODO:
       return {
@@ -53,7 +58,7 @@ const todoReducer = (state = INITIAL_STATE, action) => {
     case todoTypes.SET_MODE:
       return{
         ...state,
-        mode:action.payload
+        editMode:action.payload
       }
     default:
       return state;
