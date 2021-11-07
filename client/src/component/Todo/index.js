@@ -1,6 +1,6 @@
 import React, { useState ,useEffect} from "react";
 import { useDispatch } from "react-redux";
-import {deleteTodo,updateTodo,setModeAction,editTodoAction} from '../../redux/Todo/todo.actions';
+import {deleteTodo,updateTodo,setModeAction,editTodoAction,setMutationAction} from '../../redux/Todo/todo.actions';
 
 
 
@@ -29,6 +29,7 @@ function Todo({ todo }) {
   const handleCheckBox = (e) => {
     const newTodo = {...todo,[e.target.name]:!todo.isActive}
     dispatch(updateTodo(newTodo));
+    dispatch(setMutationAction(todo.id));
   }
 
   return (

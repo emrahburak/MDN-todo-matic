@@ -1,34 +1,44 @@
 import React, { useState, useRef, useEffect } from "react";
+import {useSelector} from 'react-redux'
 import Button from "../Button";
 import { useDispatch } from "react-redux";
-import { addTodo, editTodoAction } from "../../redux/Todo/todo.actions";
+import { addTodo, editTodoAction,updateTodo,setModeAction } from "../../redux/Todo/todo.actions";
 
 const initialState = {
   title: "",
 };
 
+const mapState = (state) => ({
+  todo: state.todosData.todo
+});
+
 
 function InputTodo({ editMode }) {
+  const {todo} = useSelector(mapState);
   const [item, setItem] = useState(initialState);
   const searchInput = useRef(null);
   const dispatch = useDispatch();
-  // const { editMode, handleEditMode, handleNormalMode } = props;
 
   useEffect(() => {
     searchInput.current.focus();
-  }, []);
+    setItem(todo);
+  }, [todo]);
 
+  const afterEdit = () => {
+    dispatch(updateTodo(item));
+    dispatch(setModeAction(!editMode));
+  }
 
   const handleClick = e => {
     e.preventDefault();
     if(item !== ''){
-      !editMode ? console.log(item) : console.log(item);
+      !editMode ? dispatch(addTodo(item)) : afterEdit();
     }
-
+    dispatch(editTodoAction(initialState));
   }
  
 
-  const confiButton = {
+  const configButton = {
     type: "submit",
   };
 
@@ -47,11 +57,11 @@ function InputTodo({ editMode }) {
           className="input input__lg"
           name="text"
           autoComplete="off"
-          value={todo.title}
-          onChange={(e) => setTodo({ title: e.target.value })}
+          value={item.title}
+          onChange={(e) => setItem({ ...todo,title: e.target.value })}
           required
         />
-        <Button appearance={editMode} {...confiButton} onClick={handleClick}>
+        <Button appearance={!editMode?"add":"edit"} {...configButton} onClick={handleClick}>
           {!editMode? (<p>Add</p>): (<p>Edit</p>)}
         </Button>
       </form>

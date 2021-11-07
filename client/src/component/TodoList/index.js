@@ -12,14 +12,15 @@ const mapState = (state) => ({
 
 const TodoList = () => {
     const {todosData} = useSelector(mapState);
-    const { display, todos } = todosData;
+    const { display, todos,mutation } = todosData;
     const len = todos.length;
     const dispatch = useDispatch();
 
 
+
     useEffect(() => {
         dispatch(fetchTodos());
-    }, [display,len])
+    }, [mutation,display,len])
 
 
     return(

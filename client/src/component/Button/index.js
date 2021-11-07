@@ -7,7 +7,7 @@ const Button = ({ appearance,  children, ...props }) => {
     <div>
       <button  className={cn(
         "btn btn__lg",
-        !appearance? "btn__primary": "btn__secondary"
+        appearance === "add"? "btn__primary": "btn__secondary",
       )}  {...props} >
         {children}
       </button>

@@ -31,3 +31,15 @@ export const handleUpdateTodo = ({ prevTodos, newTodo }) => {
     return [...acc, item];
   }, []);
 };
+
+export const handleMutation = ({mutation}) => {
+  let random = Math.random() * 20;
+  while(true){
+    random = random * mutation;
+    if(random !== mutation){
+      break;
+    }
+  }
+
+  return random;
+}

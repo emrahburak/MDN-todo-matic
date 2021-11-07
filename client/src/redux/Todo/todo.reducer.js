@@ -1,11 +1,18 @@
 import { todoTypes } from "./todo.types";
-import {handleRemoveTodo,handleFilterTodo, handleUpdateTodo, handleAddTodo} from './todo.utils'
+import {
+  handleRemoveTodo,
+  handleFilterTodo,
+  handleUpdateTodo,
+  handleAddTodo,
+  handleMutation,
+} from "./todo.utils";
 
 const INITIAL_STATE = {
-  display:null,
+  display: null,
   todos: [],
-  editMode:false,
-  todo:{title:""}
+  editMode: false,
+  todo: { title: "" },
+  mutation: 0,
 };
 
 const todoReducer = (state = INITIAL_STATE, action) => {
@@ -13,52 +20,58 @@ const todoReducer = (state = INITIAL_STATE, action) => {
     case todoTypes.FETCH_TODOS:
       return {
         ...state,
-        todos:handleFilterTodo({
+        todos: handleFilterTodo({
           todos: action.payload,
-          display: state.display
-        })
+          display: state.display,
+        }),
       };
     case todoTypes.ADD_TODO:
       return {
         ...state,
         todos: handleAddTodo({
-          prevTodos:state.todos,
-          newTodo:action.payload
+          prevTodos: state.todos,
+          newTodo: action.payload,
         }), //handle filter if not exists
-      }
+      };
     case todoTypes.EDIT_TODO:
       return {
         ...state,
-        todo:{...action.payload}
-      }
+        todo: { ...action.payload },
+      };
     case todoTypes.UPDATE_TODO:
       return {
         ...state,
         todos: handleUpdateTodo({
-          prevTodos:state.todos,
-          newTodo:action.payload
+          prevTodos: state.todos,
+          newTodo: action.payload,
         }),
-        error:''
-
-      }
+        error: "",
+      };
     case todoTypes.DELETE_TODO:
       return {
         ...state,
         todos: handleRemoveTodo({
-          prevTodos:state.todos,
-          todoToRemove: action.payload
+          prevTodos: state.todos,
+          todoToRemove: action.payload,
         }),
-        error: ''
-      }
+        error: "",
+      };
     case todoTypes.SET_DISPLAY:
-      return{
+      return {
         ...state,
-        display: action.payload
-      }
+        display: action.payload,
+      };
     case todoTypes.SET_MODE:
+      return {
+        ...state,
+        editMode: action.payload,
+      };
+    case todoTypes.SET_MUTATION:
       return{
         ...state,
-        editMode:action.payload
+        mutation: handleMutation({
+          mutation:action.payload,
+        }),
       }
     default:
       return state;

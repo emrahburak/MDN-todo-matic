@@ -6,9 +6,14 @@ import TodoList from "../TodoList";
 
 
 function Filter() {
-  const [display, setDisplay] = useState(null);
+  const [display, setDisplay] = useState(false);
   const initialButtonAttrs = ["all","active","complated"];
   const dispatch = useDispatch();
+
+
+  useEffect(() => {
+    document.getElementById("active").setAttribute("aria-pressed","true");
+  }, [])
 
 
   useEffect(() => {
@@ -60,7 +65,6 @@ function Filter() {
           Completed
         </button>
       </div>
-      <TodoList/>
     </div>
   );
 }

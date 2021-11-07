@@ -5,5 +5,6 @@ export const todoTypes = {
     UPDATE_TODO: "UPDATE_TODO",
     SET_DISPLAY: "SET_DISPLAY",
     SET_MODE: "SET_MODE",
-    EDIT_TODO: "EDIT_TODO"
+    EDIT_TODO: "EDIT_TODO",
+    SET_MUTATION: "SET_MUTATION"
 }

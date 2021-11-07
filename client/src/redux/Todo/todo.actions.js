@@ -40,6 +40,11 @@ export const setModeAction = mode =>  ({
     payload: mode
 });
 
+export const setMutationAction = (id) => ({
+    type: todoTypes.SET_MUTATION,
+    payload:id
+});
+
 
 
 export const fetchTodos = () => async dispatch => {
@@ -79,13 +84,14 @@ export const deleteTodo = (todo) => async dispatch => {
 }
 
 export const updateTodo = (todo) => async dispatch => {
+    // debugger;
     await axios.put(uri+`/${todo.id}`,{
         id: todo.id,
         title: todo.title,
         isActive: todo.isActive
     })
     .then(res => {
-        dispatch(updateTodoAction(todo))
+        dispatch(updateTodoAction(todo),setMutationAction());
     })
     .catch(err => {
         console.log(err.message);
